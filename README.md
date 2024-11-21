@@ -26,7 +26,7 @@ DOTA1.0
 | LEGNet-Tiny (1024,1024,200) | 79.37 | le90  | single-scale  |    2\*4    | [orcnn_legnet_tiny_dota10_test_ss_e36.py](./configs/legnet/orcnn_legnet_tiny_dota10_test_ss_e36.py) |          [model](https://github.com/lwCVer/LWGANet/releases/download/weights/ORCNN_LWGANet_L2_fpn_le90_dota10_ss_e30.pth)           |
 | LEGNet-Small (1024,1024,200) | 80.03 | le90  | single-scale  |    2\*4    | [orcnn_legnet_small_dota10_test_ss_e36.py](./configs/legnet/orcnn_legnet_small_dota10_test_ss_e36.py) |          [model](https://github.com/lwCVer/LWGANet/releases/download/weights/ORCNN_LWGANet_L2_fpn_le90_dota10_ss_e30.pth)           |
 
-FAIR-v1.0
+
 DOTA1.5
 
 |         Model         |  mAP  | Angle | training mode | Batch Size |                                             Configs                                              |                                                     Download                                                     |
