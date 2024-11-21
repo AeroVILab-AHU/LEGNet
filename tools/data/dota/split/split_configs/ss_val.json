@@ -1,0 +1,28 @@
+{
+  "nproc": 60,
+  "img_dirs": [
+    "/data5/dataset/DOTA15_initial/val/images/"
+  ],
+  "ann_dirs": [
+    "/data5/dataset/DOTA15_initial/val/labelTxt-v1.5/DOTA-v1.5_val/"
+  ],
+  "sizes": [
+    1024
+  ],
+  "gaps": [
+    200
+  ],
+  "rates": [
+    1.0
+  ],
+  "img_rate_thr": 0.6,
+  "iof_thr": 0.7,
+  "no_padding": false,
+  "padding_value": [
+    104,
+    116,
+    124
+  ],
+  "save_dir": "/dataset/detection/DOTA15_mmrotate_split_ss/val/",
+  "save_ext": ".png"
+}

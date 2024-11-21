@@ -1,0 +1,26 @@
+{
+  "nproc": 10,
+  "img_ann_dirs": "/dataset/detection/FAIR1M_10/test/",
+  "sizes": [
+    1024
+  ],
+  "gaps": [
+    500
+  ],
+  "rates": [
+    0.5,
+    1.0,
+    1.5
+  ],
+  "img_rate_thr": 0.6,
+  "iof_thr": 0.7,
+  "no_padding": false,
+  "padding_value": [
+    104,
+    116,
+    124
+  ],
+  "converted_dota_dir":"/dataset/detection/FAIR1M_10/fair1m_test_convert2dota_ms/test/",
+  "save_dir": "/dataset/detection/fair1m_split_ms/test/",
+  "save_ext": ".png"
+}
