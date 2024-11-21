@@ -1,5 +1,5 @@
 
-![lwganet_arch](docs/legnet.png)
+![legnet_arch](docs/legnet.png)
 
 ## This repository is the official implementation of "LEGNet: A Lightweight Edge-Gaussian Driven Backbone for Object Detection on Low-Quality Remote Sensing Images".
 ## Abstract
