@@ -17,7 +17,7 @@ Imagenet 300-epoch pre-trained LEGNet-Tiny backbone: [Download](https://github.c
 
 Imagenet 300-epoch pre-trained LEGNet-Small backbone: [Download](https://github.com/lwCVer/LWGANet/releases/download/weights/lwganet_l1_e239.pth)
 
-## Results and models
+## Results and Models
 
 DOTA1.0
 
