@@ -39,7 +39,7 @@ FAIR-v1.0
 | :----------------------: |:-----:| :---: |---| :------: |:------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------:|
 | LEGNet-Small (1024,1024,500) | 48.35 | le90  | multi-scale |    2\*4     | [orcnn_legnet_small_fairv1_test_ms_e12.py](./configs/legnet/orcnn_legnet_small_fairv1_test_ms_e12.py) | [model](https://github.com/lwCVer/LGANet/releases/download/weights/ORCNN_LWGANet_L2_fpn_le90_dota15_ss_e30.pth) |
 
-DIOR-R 
+DIOR-R (Based on mmdetection)
 
 |                    Model                     |  mAP  | Batch Size |
 | :------------------------------------------: |:-----:| :--------: |
