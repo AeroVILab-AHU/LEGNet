@@ -26,7 +26,7 @@ DOTA1.0
 | LEGNet-Tiny (1024,1024,200) | 79.37 | le90  | single-scale  |    2\*4    | [orcnn_legnet_tiny_dota10_test_ss_e36.py](./configs/legnet/orcnn_legnet_tiny_dota10_test_ss_e36.py) |          [model](https://github.com/lwCVer/LWGANet/releases/download/weights/ORCNN_LWGANet_L2_fpn_le90_dota10_ss_e30.pth)           |
 | LEGNet-Small (1024,1024,200) | 80.03 | le90  | single-scale  |    2\*4    | [orcnn_legnet_small_dota10_test_ss_e36.py](./configs/legnet/orcnn_legnet_small_dota10_test_ss_e36.py) |          [model](https://github.com/lwCVer/LWGANet/releases/download/weights/ORCNN_LWGANet_L2_fpn_le90_dota10_ss_e30.pth)           |
 
-
+FAIR-v1.0
 DOTA1.5
 
 |         Model         |  mAP  | Angle | training mode | Batch Size |                                             Configs                                              |                                                     Download                                                     |
@@ -37,7 +37,7 @@ FAIR-v1.0
 
 |         Model         |  mAP  | Angle | training mode | Batch Size |                                             Configs                                              |                                                     Download                                                     |
 | :----------------------: |:-----:| :---: |---| :------: |:------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------:|
-| LEGNet-Small (1024,1024,500) | 48.35 | le90  | multi-scale |    2\*4     | [orcnn_legnet_small_fairv1_test_ms_e12.py](./configs/legnet/orcnn_legnet_small_fairv1_test_ms_e12.py) | [model](https://github.com/lwCVer/LWGANet/releases/download/weights/ORCNN_LWGANet_L2_fpn_le90_dota15_ss_e30.pth) |
+| LEGNet-Small (1024,1024,500) | 48.35 | le90  | multi-scale |    2\*4     | [orcnn_legnet_small_fairv1_test_ms_e12.py](./configs/legnet/orcnn_legnet_small_fairv1_test_ms_e12.py) | [model](https://github.com/lwCVer/LGANet/releases/download/weights/ORCNN_LWGANet_L2_fpn_le90_dota15_ss_e30.pth) |
 
 DIOR-R 
 
@@ -58,8 +58,6 @@ conda install pytorch==1.12.0 torchvision==0.13.0 torchaudio==0.12.0 cudatoolkit
 pip install -U openmim
 mim install mmcv-full
 mim install mmdet
-# git clone https://github.com/open-mmlab/mmrotate.git
-# cd mmrotate
 pip install -v -e .
 ```
 
