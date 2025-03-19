@@ -20,6 +20,7 @@ class="center">
 
 ----
 
+
 <details>
   <summary>
   <font size="+1">Abstract</font>
@@ -96,7 +97,6 @@ We provide [colab tutorial](demo/MMRotate_Tutorial.ipynb), and other tutorials f
 - [customize model](docs/en/tutorials/customize_models.md)
 - [useful tools](docs/en/tutorials/useful_tools.md)
 
-<<<<<<< HEAD
 
 
 ## Star History
@@ -122,14 +122,6 @@ If LEGNet is useful or relevant to your research, please kindly recognize our co
   year={2025}
 }
 ```
-=======
-## Acknowledgement
-
-MMRotate is an open source project that is contributed by researchers and engineers from various colleges and companies. We appreciate all the contributors who implement their methods or add new features, as well as users who give valuable feedbacks. We wish that the toolbox and benchmark could serve the growing research community by providing a flexible toolkit to reimplement existing methods and develop their own new methods.
-
-## Citation
-
->>>>>>> 81df9c2c91e68995f7921cbd0213c075f7fb7405
 
 ## License
 Licensed under a [Creative Commons Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/) for Non-commercial use only.
