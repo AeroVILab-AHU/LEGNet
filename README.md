@@ -1,9 +1,34 @@
+# LEGNet: Lightweight Edge-Gaussian Driven Network for Low-Quality Remote Sensing Image Object Detection
 
-![legnet_arch](docs/legnet.png)
 
-## This repository is the official implementation of "LEGNet: A Lightweight Edge-Gaussian Driven Backbone for Object Detection on Low-Quality Remote Sensing Images".
-## Abstract
-Remote sensing object detection (RSOD) presents unique challenges in computer vision due to the lower resolution and often degraded quality of aerial and satellite images. These limitations lead to blurred, incomplete, or unclear object object features, complicating detection tasks and impacting model robustness. To overcome these challenges, we propose LEGNet, a lightweight and effective backbone network designed to enhance feature representation for remote sensing images. LEGNet introduces a novel low-quality feature enhancement module that combines edge-based feature extraction with Gaussian modeling to sharpen object boundaries and handle feature uncertainty. Specifically, the model leverages the Scharr filter to preserve critical edge details, providing superior rotational invariance and positional accuracy. Furthermore, Gaussian convolution kernels refine the representations of objects with uncertain features by emphasizing salient features and effectively suppressing background noise. Extensive experiments on 4 standard RSOD benchmarks confirmed the effectiveness of LEGNet, demonstrating significant improvements in both detection accuracy and computational complexity.
+
+This is the official Pytorch/Pytorch implementation of the paper: <br/>
+> **LEGNet: Lightweight Edge-Gaussian Driven Network for Low-Quality Remote Sensing Image Object Detection**
+>
+> Wei Lu, Si-Bao Chen*, Hui-Dong Li, Qing-Ling Shu, Chris H. Q. Ding, Jin Tang, and Bin Luo, Senior Member, IEEE 
+> 
+>  *IEEE Transactions on Circuits and Systems for Video Technology (TCSVT), In peer review.* [arXiv](https://arxiv.org/abs/2503.14012)
+> 
+
+----
+
+<p align="center"> 
+<img src="docs/legnet.png" width=100% 
+class="center">
+<p align="center">  Illustration of LEGNet architecture.
+</p> 
+
+----
+
+
+<details>
+  <summary>
+  <font size="+1">Abstract</font>
+  </summary>
+
+Remote sensing object detection (RSOD) faces formidable challenges in complex visual environments. Aerial and satellite images inherently suffer from limitations such as low spatial resolution, sensor noise, blurred objects, low-light degradation, and partial occlusions. These degradation factors collectively compromise the feature discriminability in detection models, resulting in three key issues: (1) reduced contrast that hampers foreground-background separation, (2) structural discontinuities in edge representations, and (3) ambiguous feature responses caused by variations in illumination. These collectively weaken model robustness and deployment feasibility. To address these challenges, we propose LEGNet, a lightweight network that incorporates a novel edge-Gaussian aggregation (EGA) module specifically designed for low-quality remote sensing images. Our key innovation lies in the synergistic integration of Scharr operator-based edge priors with uncertainty-aware Gaussian modeling: (a) The orientation-aware Scharr filters preserve high-frequency edge details with rotational invariance; (b) The uncertainty-aware Gaussian layers probabilistically refine lowconfidence features through variance estimation. This design enables precision enhancement while maintaining architectural simplicity. Comprehensive evaluations across four RSOD benchmarks (DOTA-v1.0, v1.5, DIOR-R, FAIR1M-v1.0) and a UAVview dataset (VisDrone2019) demonstrate significant improvements. LEGNet achieves state-of-the-art performance across five benchmark datasets while ensuring computational efficiency, making it well-suited for deployment on resource-constrained edge devices in real-world remote sensing applications.
+</details>
+
 
 ## Introduction
 
@@ -72,12 +97,31 @@ We provide [colab tutorial](demo/MMRotate_Tutorial.ipynb), and other tutorials f
 - [customize model](docs/en/tutorials/customize_models.md)
 - [useful tools](docs/en/tutorials/useful_tools.md)
 
-## Acknowledgement
 
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=lwCVer/LEGNet&type=Date)](https://www.star-history.com/#lwCVer/LEGNet&Date)
+
+
+## Acknowledgement
+This repository is built using the [timm](https://github.com/rwightman/pytorch-image-models) and [mmrotate](https://github.com/open-mmlab/mmrotate) repositories.
 MMRotate is an open source project that is contributed by researchers and engineers from various colleges and companies. We appreciate all the contributors who implement their methods or add new features, as well as users who give valuable feedbacks. We wish that the toolbox and benchmark could serve the growing research community by providing a flexible toolkit to reimplement existing methods and develop their own new methods.
 
-## Citation
+If you have any questions about this work, you can contact me. Email: luwei_ahu@qq.com.
 
+Your star is the power that keeps us updating github.
+
+## Citation
+If LEGNet is useful or relevant to your research, please kindly recognize our contributions by citing our paper:
+```
+@article{lu2025legnet,
+  title={LEGNet: Lightweight Edge-Gaussian Driven Network for Low-Quality Remote Sensing Image Object Detection},
+  author={Lu, Wei and Chen, Si-Bao and Li, Hui-Dong and Shu, Qing-Ling and Ding, Chris HQ and Tang, Jin and Luo, Bin},
+  journal={arXiv preprint arXiv:2503.14012},
+  year={2025}
+}
+```
 
 ## License
 Licensed under a [Creative Commons Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/) for Non-commercial use only.
