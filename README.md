@@ -22,7 +22,6 @@ class="center">
 
 	
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/legnet-lightweight-edge-gaussian-driven/object-detection-on-visdrone-det2019-1)](https://paperswithcode.com/sota/object-detection-on-visdrone-det2019-1?p=legnet-lightweight-edge-gaussian-driven)
-	
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/legnet-lightweight-edge-gaussian-driven/oriented-object-detection-on-dota-1-5)](https://paperswithcode.com/sota/oriented-object-detection-on-dota-1-5?p=legnet-lightweight-edge-gaussian-driven)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/legnet-lightweight-edge-gaussian-driven/oriented-object-detection-on-dota-1-0)](https://paperswithcode.com/sota/oriented-object-detection-on-dota-1-0?p=legnet-lightweight-edge-gaussian-driven)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/legnet-lightweight-edge-gaussian-driven/object-detection-in-aerial-images-on-dior-r)](https://paperswithcode.com/sota/object-detection-in-aerial-images-on-dior-r?p=legnet-lightweight-edge-gaussian-driven)
