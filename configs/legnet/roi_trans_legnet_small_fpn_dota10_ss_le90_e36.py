@@ -7,7 +7,7 @@ angle_version = 'le90'
 model = dict(
     type='RoITransformer',
     backbone=dict(
-        type='LEGNet',
+        type='LWEGNet',
         stem_dim=64,
         depths=(1, 4, 4, 2),
         norm_layer=dict(type='SyncBN', requires_grad=True),

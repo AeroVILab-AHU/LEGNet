@@ -4,7 +4,7 @@ from .re_resnet import ReResNet
 from .pkinet import PKINet
 from .lsknet import LSKNet
 
-from .legnet import LEGNet
+from .legnet import LWEGNet
 
 
-__all__ = ['ReResNet', 'PKINet', 'LSKNet', 'LEGNet']
+__all__ = ['ReResNet', 'PKINet', 'LSKNet', 'LWEGNet']

@@ -12,6 +12,7 @@ from mmcv.cnn import build_norm_layer
 from math import log
 import numpy
 import matplotlib.pyplot as plt
+from ..builder import ROTATED_BACKBONES
 
 try:
     from mmdet.utils import get_root_logger
@@ -23,19 +24,20 @@ except ImportError:
 
 
 class DRFD(nn.Module):
-    def __init__(self, channel, norm_layer, act_layer):
+    def __init__(self, dim, norm_layer, act_layer):
         super().__init__()
-        out_c = channel * 2
-        self.conv = nn.Conv2d(channel, channel * 2, kernel_size=3, stride=1, padding=1, groups=channel)
-        self.conv_c = nn.Conv2d(channel * 2, channel * 2, kernel_size=3, stride=2, padding=1, groups=channel * 2)
+        self.dim = dim
+        self.outdim = dim * 2
+        self.conv = nn.Conv2d(dim, dim * 2, kernel_size=3, stride=1, padding=1, groups=dim)
+        self.conv_c = nn.Conv2d(dim * 2, dim * 2, kernel_size=3, stride=2, padding=1, groups=dim * 2)
         self.act_c = act_layer()
-        self.norm_c = build_norm_layer(norm_layer, channel * 2)[1]
+        self.norm_c = build_norm_layer(norm_layer, dim * 2)[1]
         self.max_m = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
-        self.norm_m = build_norm_layer(norm_layer, channel * 2)[1]
-        self.fusion = nn.Conv2d(channel * 4, out_c, kernel_size=1, stride=1)
+        self.norm_m = build_norm_layer(norm_layer, dim * 2)[1]
+        self.fusion = nn.Conv2d(dim * 4, self.outdim, kernel_size=1, stride=1)
         # gaussian
-        self.gaussian = Gaussian(out_c, 5, 0.5, norm_layer, act_layer)
-        self.norm_g = build_norm_layer(norm_layer, out_c)[1]
+        self.gaussian = Gaussian(self.outdim, 5, 0.5, norm_layer, act_layer, feature_extra=False)
+        self.norm_g = build_norm_layer(norm_layer, self.outdim)[1]
 
     def forward(self, x):  # x = [B, C, H, W]
 
@@ -48,6 +50,20 @@ class DRFD(nn.Module):
         x = self.fusion(x)  # x = [B, 4C, H/2, W/2]     -->  [B, 2C, H/2, W/2]
 
         return x
+
+
+def show_feature(out):
+    out_cpu = out.cpu()
+    feature_map = out_cpu.detach().numpy()
+    # [N， C, H, W] -> [H, W， C]
+    im = numpy.squeeze(feature_map)
+    im = numpy.transpose(im, [1, 2, 0])
+    for c in range(24):
+        ax = plt.subplot(4, 6, c + 1)
+        plt.axis('off')  # 不显示坐标轴
+        # [H, W, C]
+        plt.imshow(im[:, :, c], cmap=plt.get_cmap('Blues'))
+    plt.show()
 
 
 class Conv_Extra(nn.Module):
@@ -79,6 +95,7 @@ class Scharr(nn.Module):
         self.conv_y.weight.data = scharr_y.repeat(channel, 1, 1, 1)
         self.norm = build_norm_layer(norm_layer, channel)[1]
         self.act = act_layer()
+        self.conv_extra = Conv_Extra(channel, norm_layer, act_layer)
 
     def forward(self, x):
         # show_feature(x)
@@ -88,25 +105,33 @@ class Scharr(nn.Module):
         # 计算边缘和高斯分布强度（可以选择不同的方式进行融合，这里使用平方和开根号）
         scharr_edge = torch.sqrt(edges_x ** 2 + edges_y ** 2)
         scharr_edge = self.act(self.norm(scharr_edge))
+        out = self.conv_extra(x + scharr_edge)
         # show_feature(out)
 
-        return scharr_edge
+        return out
 
 
 class Gaussian(nn.Module):
-    def __init__(self, channel, size, sigma, norm_layer, act_layer):
+    def __init__(self, dim, size, sigma, norm_layer, act_layer, feature_extra=True):
         super().__init__()
+        self.feature_extra = feature_extra
         gaussian = self.gaussian_kernel(size, sigma)
         gaussian = nn.Parameter(data=gaussian, requires_grad=False).clone()
-        self.gaussian = nn.Conv2d(channel, channel, kernel_size=size, stride=1, padding=int(size // 2), groups=channel, bias=False)
-        self.gaussian.weight.data = gaussian.repeat(channel, 1, 1, 1)
-        self.norm = build_norm_layer(norm_layer, channel)[1]
+        self.gaussian = nn.Conv2d(dim, dim, kernel_size=size, stride=1, padding=int(size // 2), groups=dim, bias=False)
+        self.gaussian.weight.data = gaussian.repeat(dim, 1, 1, 1)
+        self.norm = build_norm_layer(norm_layer, dim)[1]
         self.act = act_layer()
+        if feature_extra == True:
+            self.conv_extra = Conv_Extra(dim, norm_layer, act_layer)
 
     def forward(self, x):
         edges_o = self.gaussian(x)
         gaussian = self.act(self.norm(edges_o))
-        return gaussian
+        if self.feature_extra == True:
+            out = self.conv_extra(x + gaussian)
+        else:
+            out = gaussian
+        return out
     
     def gaussian_kernel(self, size: int, sigma: float):
         kernel = torch.FloatTensor([
@@ -117,34 +142,10 @@ class Gaussian(nn.Module):
         return kernel / kernel.sum()
 
 
-class EGA(nn.Module):
-    def __init__(self, stage, channel, norm_layer, act_layer):
-        super(EGA, self).__init__()
-        self.stage = stage
-        if stage == 0:
-            self.Scharr_edge = Scharr(channel, norm_layer, act_layer)
-        else:
-            self.gaussian = Gaussian(channel, 5, 1.0, norm_layer, act_layer)
-        self.conv_extra = Conv_Extra(channel, norm_layer, act_layer)
-
-    def forward(self, x):
-        if self.stage == 0:
-            att = self.Scharr_edge(x)
-        else:
-            att = self.gaussian(x)
-        F_a = self.conv_extra(x + att)
-        return F_a
-
-
-class LEG_Module(nn.Module):
-    def __init__(self,
-                 channel,
-                 stage,
-                 drop_path,
-                 act_layer,
-                 norm_layer
-                 ):
-        super().__init__()
+class LFEA(nn.Module):
+    def __init__(self, channel, norm_layer, act_layer):
+        super(LFEA, self).__init__()
+        self.channel = channel
         t = int(abs((log(channel, 2) + 1) / 2))
         k = t if t % 2 else t + 1
         self.conv2d = self.block = nn.Sequential(
@@ -155,36 +156,64 @@ class LEG_Module(nn.Module):
         self.conv1d = nn.Conv1d(1, 1, kernel_size=k, padding=(k - 1) // 2, bias=False)
         self.sigmoid = nn.Sigmoid()
         self.norm = build_norm_layer(norm_layer, channel)[1]
-        self.EGA = EGA(stage, channel, norm_layer, act_layer)
 
-        mlp_hidden_dim = int(channel * 2)
-        mlp_layer: List[nn.Module] = [
-            nn.Conv2d(channel, mlp_hidden_dim, 1, bias=False),
-            build_norm_layer(norm_layer, mlp_hidden_dim)[1],
-            act_layer(),
-            nn.Conv2d(mlp_hidden_dim, channel, 1, bias=False)]
-        self.mlp = nn.Sequential(*mlp_layer)
-        self.norm1 = build_norm_layer(norm_layer, channel)[1]
-        self.drop_path = DropPath(drop_path) if drop_path > 0. else nn.Identity()
-
-        
-
-    def forward(self, x: Tensor) -> Tensor:
-        F_a = self.EGA(x)
-        F_ega = self.conv2d(x * F_a + x)
-        wei = self.avg_pool(F_ega)
+    def forward(self, c, att):
+        att = c * att + c
+        att = self.conv2d(att)
+        wei = self.avg_pool(att)
         wei = self.conv1d(wei.squeeze(-1).transpose(-1, -2)).transpose(-1, -2).unsqueeze(-1)
         wei = self.sigmoid(wei)
-        x_att = self.norm(x + F_ega * wei)
-        out = x + self.norm1(self.drop_path(self.mlp(x_att)))
-        return out
+        x = self.norm(c + att * wei)
+
+        return x
+
+
+class LFE_Module(nn.Module):
+    def __init__(self,
+                 dim,
+                 stage,
+                 mlp_ratio,
+                 drop_path,
+                 act_layer,
+                 norm_layer
+                 ):
+        super().__init__()
+        self.stage = stage
+        self.drop_path = DropPath(drop_path) if drop_path > 0. else nn.Identity()
+
+        mlp_hidden_dim = int(dim * mlp_ratio)
+        mlp_layer: List[nn.Module] = [
+            nn.Conv2d(dim, mlp_hidden_dim, 1, bias=False),
+            build_norm_layer(norm_layer, mlp_hidden_dim)[1],
+            act_layer(),
+            nn.Conv2d(mlp_hidden_dim, dim, 1, bias=False)]
+
+        self.mlp = nn.Sequential(*mlp_layer)
+        self.LFEA = LFEA(dim, norm_layer, act_layer)
+
+        if stage == 0:
+            self.Scharr_edge = Scharr(dim, norm_layer, act_layer)
+        else:
+            self.gaussian = Gaussian(dim, 5, 1.0, norm_layer, act_layer)
+        self.norm = build_norm_layer(norm_layer, dim)[1]
+
+    def forward(self, x: Tensor) -> Tensor:
+        # show_feature(x)
+        if self.stage == 0:
+            att = self.Scharr_edge(x)
+        else:
+            att = self.gaussian(x)
+        x_att = self.LFEA(x, att)
+        x = x + self.norm(self.drop_path(self.mlp(x_att)))
+        return x
 
 
 class BasicStage(nn.Module):
     def __init__(self,
-                 channel,
+                 dim,
                  stage,
                  depth,
+                 mlp_ratio,
                  drop_path,
                  norm_layer,
                  act_layer
@@ -192,9 +221,10 @@ class BasicStage(nn.Module):
         super().__init__()
 
         blocks_list = [
-            LEG_Module(
-                channel=channel,
+            LFE_Module(
+                dim=dim,
                 stage=stage,
+                mlp_ratio=mlp_ratio,
                 drop_path=drop_path[i],
                 norm_layer=norm_layer,
                 act_layer=act_layer
@@ -267,7 +297,8 @@ class Stem(nn.Module):
         return x  # x = [B, C, H/4, W/4]
 
 
-class LEGNet(nn.Module):
+@ROTATED_BACKBONES.register_module()
+class LWEGNet(nn.Module):
     def __init__(self,
                  in_chans=3,
                  num_classes=1000,
@@ -275,7 +306,8 @@ class LEGNet(nn.Module):
                  depths=(1, 4, 4, 2),
                  norm_layer=dict(type='BN', requires_grad=True),
                  act_layer=nn.ReLU,
-                 feature_dim=1000,
+                 mlp_ratio=2.,
+                 feature_dim=1280,
                  drop_path_rate=0.1,
                  fork_feat=False,
                  init_cfg=None,
@@ -288,6 +320,9 @@ class LEGNet(nn.Module):
         self.num_stages = len(depths)
         self.num_features = int(stem_dim * 2 ** (self.num_stages - 1))
 
+        if stem_dim == 96:
+            act_layer = nn.ReLU
+
         self.Stem = Stem(in_chans=in_chans, stem_dim=stem_dim, act_layer=act_layer, norm_layer=norm_layer)
         
         # stochastic depth decay rule
@@ -297,9 +332,10 @@ class LEGNet(nn.Module):
         # build layers
         stages_list = []
         for i_stage in range(self.num_stages):
-            stage = BasicStage(channel=int(stem_dim * 2 ** i_stage),
+            stage = BasicStage(dim=int(stem_dim * 2 ** i_stage),
                                stage=i_stage,
                                depth=depths[i_stage],
+                               mlp_ratio=mlp_ratio,
                                drop_path=dpr[sum(depths[:i_stage]):sum(depths[:i_stage + 1])],
                                norm_layer=norm_layer,
                                act_layer=act_layer
@@ -309,52 +345,27 @@ class LEGNet(nn.Module):
             # patch merging layer
             if i_stage < self.num_stages - 1:
                 stages_list.append(
-                    DRFD(channel=int(stem_dim * 2 ** i_stage), norm_layer=norm_layer, act_layer=act_layer)
+                    DRFD(dim=int(stem_dim * 2 ** i_stage), norm_layer=norm_layer, act_layer=act_layer)
                 )
 
         self.stages = nn.Sequential(*stages_list)
 
         self.fork_feat = fork_feat
 
-        if self.fork_feat:
-            self.forward = self.forward_det
-            # add a norm layer for each output
-            self.out_indices = [0, 2, 4, 6]
-            for i_emb, i_layer in enumerate(self.out_indices):
-                if i_emb == 0 and os.environ.get('FORK_LAST3', None):
-                    raise NotImplementedError
-                else:
-                    layer = build_norm_layer(norm_layer, int(stem_dim * 2 ** i_emb))[1]
-                layer_name = f'norm{i_layer}'
-                self.add_module(layer_name, layer)
-        else:
-            self.forward = self.forward_cls
-            # Classifier head
-            self.avgpool_pre_head = nn.Sequential(
-                nn.AdaptiveAvgPool2d(1),
-                nn.Conv2d(self.num_features, feature_dim, 1, bias=False),
-                act_layer()
-            )
-            self.head = nn.Linear(feature_dim, num_classes) \
-                if num_classes > 0 else nn.Identity()
+        self.forward = self.forward_det
+        # add a norm layer for each output
+        self.out_indices = [0, 2, 4, 6]
+        for i_emb, i_layer in enumerate(self.out_indices):
+            if i_emb == 0 and os.environ.get('FORK_LAST3', None):
+                raise NotImplementedError
+            else:
+                layer = build_norm_layer(norm_layer, int(stem_dim * 2 ** i_emb))[1]
+            layer_name = f'norm{i_layer}'
+            self.add_module(layer_name, layer)
 
-        self.apply(self.cls_init_weights)
         self.init_cfg = copy.deepcopy(init_cfg)
         if self.fork_feat and (self.init_cfg is not None or pretrained is not None):
             self.init_weights()
-
-    def cls_init_weights(self, m):
-        if isinstance(m, nn.Linear):
-            trunc_normal_(m.weight, std=.02)
-            if isinstance(m, nn.Linear) and m.bias is not None:
-                nn.init.constant_(m.bias, 0)
-        elif isinstance(m, (nn.Conv1d, nn.Conv2d)):
-            trunc_normal_(m.weight, std=.02)
-            if m.bias is not None:
-                nn.init.constant_(m.bias, 0)
-        elif isinstance(m, (nn.LayerNorm, nn.GroupNorm)):
-            nn.init.constant_(m.bias, 0)
-            nn.init.constant_(m.weight, 1.0)
 
     # init for mmdetection by loading imagenet pre-trained weights
     def init_weights(self, pretrained=None):
@@ -390,16 +401,6 @@ class LEGNet(nn.Module):
             # show for debug
             print('missing_keys: ', missing_keys)
             print('unexpected_keys: ', unexpected_keys)
-
-    def forward_cls(self, x):
-        # output only the features of last layer for image classification
-        x = self.Stem(x)
-        x = self.stages(x)
-        x = self.avgpool_pre_head(x)  # B C 1 1
-        x = torch.flatten(x, 1)
-        x = self.head(x)
-
-        return x
 
     def forward_det(self, x: Tensor) -> Tensor:
         # output the features of four stages for dense prediction
