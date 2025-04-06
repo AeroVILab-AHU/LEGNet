@@ -54,15 +54,15 @@ DOTA1.0
 
 |           Model            |  mAP  | Angle | training mode | Batch Size |                                     Configs                                      |                                                              Download                                                               |
 |:--------------------------:|:-----:| :---: |---------------|:----------:|:--------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------:|
-| LEGNet-Tiny (1024,1024,200) | 79.37 | le90  | single-scale  |    2\*4    | [orcnn_legnet_tiny_dota10_test_ss_e36.py](./configs/legnet/orcnn_legnet_tiny_dota10_test_ss_e36.py) |          [model](https://github.com/lwCVer/LEGNet/releases/download/weights/ORCNN_LEGNet_Tiny_fpn_le90_dota10_ss_e36.pth)           |
-| LEGNet-Small (1024,1024,200) | 80.03 | le90  | single-scale  |    2\*4    | [orcnn_legnet_small_dota10_test_ss_e36.py](./configs/legnet/orcnn_legnet_small_dota10_test_ss_e36.py) |          [model](https://github.com/lwCVer/LEGNet/releases/download/weights/ORCNN_LEGNet_Small_fpn_le90_dota10_ss_e36.pth)           |
+| LEGNet-Tiny (1024,1024,200) | 79.37 | le90  | single-scale  |    2\*4    | [orcnn_legnet_tiny_dota10_test_ss_e36.py](./configs/legnet/orcnn_legnet_tiny_dota10_test_ss_e36.py) |          [model](https://github.com/lwCVer/LEGNet/releases/download/weights/lwegnet_tiny_orcnn_dota19_ss.pth)           |
+| LEGNet-Small (1024,1024,200) | 80.03 | le90  | single-scale  |    2\*4    | [orcnn_legnet_small_dota10_test_ss_e36.py](./configs/legnet/orcnn_legnet_small_dota10_test_ss_e36.py) |          [model](https://github.com/lwCVer/LEGNet/releases/download/weights/lwegnet_small_orcnn_dota10_ss.pth)           |
 
 
 DOTA1.5
 
 |         Model         |  mAP  | Angle | training mode | Batch Size |                                             Configs                                              |                                                     Download                                                     |
 | :----------------------: |:-----:| :---: |---| :------: |:------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------:|
-| LEGNet-Small (1024,1024,200) | 72.89 | le90  | single-scale |    2\*4     | [orcnn_legnet_small_dota10_test_ss_e36.py](./configs/legnet/orcnn_legnet_small_dota15_test_ss_e36.py) | [model](https://github.com/lwCVer/LEGNet/releases/download/weights/ORCNN_LEGNet_L2_fpn_le90_dota15_ss_e36.pth) |
+| LEGNet-Small (1024,1024,200) | 72.89 | le90  | single-scale |    2\*4     | [orcnn_legnet_small_dota10_test_ss_e36.py](./configs/legnet/orcnn_legnet_small_dota15_test_ss_e36.py) | [model](https://github.com/lwCVer/LEGNet/releases/download/weights/lwegnet_small_orcnn_dota15_ss.pth) |
 
 FAIR-v1.0
 
