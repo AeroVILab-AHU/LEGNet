@@ -82,13 +82,14 @@ MMRotate depends on [PyTorch](https://pytorch.org/), [MMCV](https://github.com/o
 Below are quick steps for installation.
 Please refer to [Install Guide](https://mmrotate.readthedocs.io/en/latest/install.html) for more detailed instruction.
 
+
+
 ```shell
 conda create -n LEGNet-Det python=3.8 -y
 conda activate LEGNet-Det
 conda install pytorch==1.12.0 torchvision==0.13.0 torchaudio==0.12.0 cudatoolkit=11.3 -c pytorch
-pip install -U openmim
-mim install mmcv-full
-mim install mmdet
+pip install mmcv-full==1.7.2 -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.12.0/index.html
+pip install mmdet
 pip install -v -e .
 ```
 
