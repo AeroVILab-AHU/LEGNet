@@ -115,7 +115,9 @@ We provide [colab tutorial](demo/MMRotate_Tutorial.ipynb), and other tutorials f
 This repository is built using the [timm](https://github.com/rwightman/pytorch-image-models) and [mmrotate](https://github.com/open-mmlab/mmrotate) repositories.
 MMRotate is an open source project that is contributed by researchers and engineers from various colleges and companies. We appreciate all the contributors who implement their methods or add new features, as well as users who give valuable feedbacks. We wish that the toolbox and benchmark could serve the growing research community by providing a flexible toolkit to reimplement existing methods and develop their own new methods.
 
-If you have any questions about this work, you can contact me. Email: luwei_ahu@qq.com.
+If you have any questions about this work, you can contact me. 
+
+Email: [luwei_ahu@qq.com](mailto:luwei_ahu@qq.com); WeChat: lw2858191255.
 
 Your star is the power that keeps us updating github.
 
