@@ -7,7 +7,7 @@ This is the official Pytorch/Pytorch implementation of the paper: <br/>
 >
 > Wei Lu, Si-Bao Chen*, Hui-Dong Li, Qing-Ling Shu, Chris H. Q. Ding, Jin Tang, and Bin Luo, Senior Member, IEEE 
 > 
->  *IEEE Transactions on Circuits and Systems for Video Technology (TCSVT), In peer review.* [arXiv](https://arxiv.org/abs/2503.14012)
+>  *In peer review.* [arXiv](https://arxiv.org/abs/2503.14012)
 > 
 
 ----
