@@ -7,7 +7,7 @@ This is the official Pytorch/Pytorch implementation of the paper: <br/>
 >
 > Wei Lu, Si-Bao Chen*, Hui-Dong Li, Qing-Ling Shu, Chris H. Q. Ding, Jin Tang, and Bin Luo, Senior Member, IEEE 
 > 
->  *In peer review.* [arXiv](https://arxiv.org/abs/2503.14012)
+>  *ICCV Workshop 2025.* [arXiv](https://arxiv.org/abs/2503.14012)
 > 
 
 ----
@@ -26,6 +26,17 @@ class="center">
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/legnet-lightweight-edge-gaussian-driven/oriented-object-detection-on-dota-1-0)](https://paperswithcode.com/sota/oriented-object-detection-on-dota-1-0?p=legnet-lightweight-edge-gaussian-driven)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/legnet-lightweight-edge-gaussian-driven/object-detection-in-aerial-images-on-dior-r)](https://paperswithcode.com/sota/object-detection-in-aerial-images-on-dior-r?p=legnet-lightweight-edge-gaussian-driven)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/legnet-lightweight-edge-gaussian-driven/object-detection-in-aerial-images-on-dota-1)](https://paperswithcode.com/sota/object-detection-in-aerial-images-on-dota-1?p=legnet-lightweight-edge-gaussian-driven)
+
+
+
+## News 🆕
+- **2025.07.11** Congratulations! Our paper "LEGNet: A Lightweight Edge-Gaussian Network for Low-Quality Remote Sensing Image Object Detection" has been accepted by **ICCV Workshop 2025**. 🔥
+
+- **2025.06.02** Update LEGNet V2-version paper in [Arxiv](https://arxiv.org/abs/2503.140121). The new code, models and results are uploaded. 🎈
+
+- **2025.03.18** Update LEGNet original-version paper in [Arxiv](https://arxiv.org/abs/2503.14012v1). The new code, models and results are uploaded. 🎈
+
+
 
 <details>
   <summary>
