@@ -7,7 +7,7 @@ This is the official Pytorch/Pytorch implementation of the paper: <br/>
 >
 > Wei Lu, Si-Bao Chen*, Hui-Dong Li, Qing-Ling Shu, Chris H. Q. Ding, Jin Tang, and Bin Luo, Senior Member, IEEE 
 > 
->  *ICCV Workshop 2025.* [arXiv](https://arxiv.org/abs/2503.14012)
+>  *ICCVW 2025.* [arXiv](https://arxiv.org/abs/2503.14012)
 > 
 
 ----
@@ -30,7 +30,7 @@ class="center">
 
 
 ## News 🆕
-- **2025.07.11** Congratulations! Our paper "LEGNet: A Lightweight Edge-Gaussian Network for Low-Quality Remote Sensing Image Object Detection" has been accepted by **ICCV Workshop 2025**. 🔥
+- **2025.07.11** Congratulations! Our paper "LEGNet: A Lightweight Edge-Gaussian Network for Low-Quality Remote Sensing Image Object Detection" has been accepted by **ICCVW 2025**. 🔥
 
 - **2025.06.02** Update LEGNet V2-version paper in [Arxiv](https://arxiv.org/abs/2503.140121). The new code, models and results are uploaded. 🎈
 
