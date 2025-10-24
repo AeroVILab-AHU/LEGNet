@@ -1,13 +1,13 @@
-# LEGNet: Lightweight Edge-Gaussian Driven Network for Low-Quality Remote Sensing Image Object Detection
+# LEGNet: A Lightweight Edge-Gaussian Network for Low-Quality Remote Sensing Image Object Detection
 
 
 
 This is the official Pytorch/Pytorch implementation of the paper: <br/>
-> **LEGNet: Lightweight Edge-Gaussian Driven Network for Low-Quality Remote Sensing Image Object Detection**
+> **LEGNet: A Lightweight Edge-Gaussian Network for Low-Quality Remote Sensing Image Object Detection**
 >
 > Wei Lu, Si-Bao Chen*, Hui-Dong Li, Qing-Ling Shu, Chris H. Q. Ding, Jin Tang, and Bin Luo, Senior Member, IEEE 
 > 
->  *ICCVW 2025.* [arXiv](https://arxiv.org/abs/2503.14012)
+>  *[ICCV 2025 Workshop](https://openaccess.thecvf.com/content/ICCV2025W/SEA/html/Lu_LEGNet_A_Lightweight_Edge-Gaussian_Network_for_Low-Quality_Remote_Sensing_Image_ICCVW_2025_paper.html).* 
 > 
 
 ----
@@ -30,7 +30,7 @@ class="center">
 
 
 ## News 🆕
-- **2025.07.11** Congratulations! Our paper "LEGNet: A Lightweight Edge-Gaussian Network for Low-Quality Remote Sensing Image Object Detection" has been accepted by **ICCVW 2025**. 🔥
+- **2025.07.11** Congratulations! Our paper "LEGNet: A Lightweight Edge-Gaussian Network for Low-Quality Remote Sensing Image Object Detection" has been accepted by **ICCV 2025 Workshop**. 🔥
 
 - **2025.06.02** Update LEGNet V2-version paper in [Arxiv](https://arxiv.org/abs/2503.140121). The new code, models and results are uploaded. 🎈
 
@@ -143,6 +143,7 @@ If LEGNet is useful or relevant to your research, please kindly recognize our co
   year={2025}
 }
 ```
+
 
 ## License
 Licensed under a [Creative Commons Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/) for Non-commercial use only.
