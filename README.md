@@ -7,8 +7,6 @@ This is the official Pytorch/Pytorch implementation of the paper: <br/>
 >
 > Wei Lu, Si-Bao Chen*, Hui-Dong Li, Qing-Ling Shu, Chris H. Q. Ding, Jin Tang, and Bin Luo, Senior Member, IEEE 
 > 
->  *[ICCV 2025 Workshop](https://openaccess.thecvf.com/content/ICCV2025W/SEA/html/Lu_LEGNet_A_Lightweight_Edge-Gaussian_Network_for_Low-Quality_Remote_Sensing_Image_ICCVW_2025_paper.html).* 
-> 
 
 ----
 
