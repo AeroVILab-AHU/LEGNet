@@ -136,7 +136,7 @@ If LEGNet is useful or relevant to your research, please kindly recognize our co
 @inproceedings{lu2025legnet,
   title={LEGNet: A Lightweight Edge-Gaussian Network for Low-Quality Remote Sensing Image Object Detection},
   author={Lu, Wei and Chen, Si-Bao and Li, Hui-Dong and Shu, Qing-Ling and Ding, Chris HQ and Tang, Jin and Luo, Bin},
-  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV) Workshops},
   pages={2844--2853},
   year={2025}
 }
@@ -144,5 +144,5 @@ If LEGNet is useful or relevant to your research, please kindly recognize our co
 
 
 ## License
-Licensed under a [Creative Commons Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/) for Non-commercial use only.
+Licensed under a [Creative Commons Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/) for Non-commercial use only. 
 Any commercial use should get formal permission first.
